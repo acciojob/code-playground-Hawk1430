@@ -1,13 +1,51 @@
-
-import React from "react";
+import React, { useState } from "react";
 import './../styles/App.css';
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom/cjs/react-router-dom.min";
+import Home from "./Home";
+import Playground from "./Playground";
+import PrivateRoute from "./PrivateRoute"; 
 
 const App = () => {
-  return (
-    <div>
-        APP
-    </div>
-  )
-}
+  const [isAuth, setIsAuth] = useState(false);
 
-export default App
+  function handleAuth() {
+    setIsAuth(!isAuth);
+  }
+
+  return (
+    <div className="main-container">
+      <p>
+        {isAuth
+          ? "Logged in, Now you can enter playground"
+          : "You are not authenticated, Please login first"}
+      </p>
+
+      <nav>
+        <li>
+          <Link to="/playground">Playground</Link>
+        </li>
+        <li>
+          <Link to="/">Login</Link>
+        </li>
+      </nav>
+
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <Home {...props} isAuth={isAuth} handleAuth={handleAuth} />
+          )}
+        />
+        <PrivateRoute
+          exact
+          path="/playground"
+          component={Playground}
+          isAuth={isAuth}
+        />
+      </Switch>
+    </div>
+  );
+};
+
+export default App;
