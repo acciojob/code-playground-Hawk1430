@@ -21,21 +21,24 @@ const App = () => {
       </p>
 
       <nav>
-        {isAuth && (
-          <li>
-            <Link to="/playground">Playground</Link>
-          </li>
-        )}
         <li>
-          <Link to="/">Login</Link>
+          {isAuth ? (
+            <Link to="/playground">Playground</Link>
+          ) : (
+            <span style={{ color: 'gray' }}>Playground</span>
+          )}
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
         </li>
       </nav>
+
 
 
       <Switch>
         <Route
           exact
-          path="/"
+          path="/login"
           render={(props) => (
             <Home {...props} isAuth={isAuth} handleAuth={handleAuth} />
           )}
