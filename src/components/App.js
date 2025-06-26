@@ -16,18 +16,21 @@ const App = () => {
     <div className="main-container">
       <p>
         {isAuth
-          ? "Logged in, Now you can enter playground"
+          ? 'Logged in, Now you can enter Playground'
           : "You are not authenticated, Please login first"}
       </p>
 
       <nav>
-        <li>
-          <Link to="/playground">Playground</Link>
-        </li>
+        {isAuth && (
+          <li>
+            <Link to="/playground">Playground</Link>
+          </li>
+        )}
         <li>
           <Link to="/">Login</Link>
         </li>
       </nav>
+
 
       <Switch>
         <Route
